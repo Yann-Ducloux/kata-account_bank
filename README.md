@@ -1,0 +1,1 @@
+# kata-account_bank
