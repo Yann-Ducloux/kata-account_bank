@@ -1,11 +1,12 @@
 package model;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Account {
-    float balance;
+    BigDecimal balance;
 
-    public Account(float balance) {
+    public Account(BigDecimal balance) {
         this.balance = balance;
     }
 
@@ -13,16 +14,21 @@ public class Account {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Account account = (Account) o;
-        return Float.compare(account.balance, balance) == 0;
+
+        return Objects.equals(balance, account.balance);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(balance);
+        return balance != null ? balance.hashCode() : 0;
     }
 
-    public void addAmount(float balance) {
-        this.balance += balance;
+    public void addAmount(BigDecimal balance) {
+        this.balance = this.balance.add(balance);
+    }
+    public void subtractAmount(BigDecimal balance) {
+        this.balance = this.balance.subtract(balance);
     }
 }

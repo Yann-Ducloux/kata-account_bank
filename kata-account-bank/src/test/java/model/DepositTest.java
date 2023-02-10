@@ -2,6 +2,8 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -9,11 +11,11 @@ class DepositTest {
   @Test
   void SingleDepositInAccountEmptyTest() {
     //GIVEN
-    Account account = new Account(0f);
+    Account account = new Account(new BigDecimal(String.valueOf(0f)));
     Deposit deposit = new Deposit();
 
     //WHEN
-    deposit.saveMoney(account,907.23f);
+    deposit.saveMoney(account,new BigDecimal(String.valueOf(907.23f)));
 
     //THEN
     assertThat(account, is(account(907.23f)));
@@ -21,25 +23,25 @@ class DepositTest {
   @Test
   void MultipleDepositInAccountEmptyTest() {
     //GIVEN
-    Account account = new Account(0f);
+    Account account = new Account(new BigDecimal(String.valueOf(0f)));
     Deposit deposit = new Deposit();
 
     //WHEN
-    deposit.saveMoney(account,146.19f);
-    deposit.saveMoney(account,147.30f);
+    deposit.saveMoney(account,new BigDecimal(String.valueOf(146.18f)));
+    deposit.saveMoney(account,new BigDecimal(String.valueOf(147.30f)));
 
     //THEN
-    assertThat(account, is(account(293.49f)));
+    assertThat(account, is(account(293.48f)));
   }
 
   @Test
   void SingleDepositInAccountFillTest() {
     //GIVEN
-    Account account = new Account(393.12f);
+    Account account = new Account(new BigDecimal(String.valueOf(393.12f)));
     Deposit deposit = new Deposit();
 
     //WHEN
-    deposit.saveMoney(account, 80.00f);
+    deposit.saveMoney(account, new BigDecimal(String.valueOf(80.00f)));
 
     //THEN
     assertThat(account, is(account(473.12f)));
@@ -47,17 +49,17 @@ class DepositTest {
   @Test
   void MultipleDepositInAccountFillTest() {
     //GIVEN
-    Account account = new Account(182.91f);
+    Account account = new Account(new BigDecimal(String.valueOf(182.91f)));
     Deposit deposit = new Deposit();
 
     //WHEN
-    deposit.saveMoney(account, 62.07f);
-    deposit.saveMoney(account, 47.00f);
+    deposit.saveMoney(account, new BigDecimal(String.valueOf(62.07f)));
+    deposit.saveMoney(account, new BigDecimal(String.valueOf(47.00f)));
 
     //THEN
     assertThat(account, is(account(291.98f)));
   }
   private Account account(float amount) {
-    return new Account(amount);
+    return new Account(new BigDecimal(String.valueOf(amount)));
   }
 }

@@ -2,8 +2,8 @@ package model;
 
 import java.math.BigDecimal;
 
-public class Deposit implements IOperation {
+public class Withdrawal {
     public void saveMoney(Account account, BigDecimal amount){
-        account.addAmount(amount);
+        account.subtractAmount(amount);
     }
 }
