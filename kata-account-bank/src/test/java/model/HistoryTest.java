@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class MainTest {
+public class HistoryTest {
     private static final String LINE_BREAK = System.getProperty("line.separator");
     private static final String MONEY = "€";
     private static final String SEPARATOR = " | ";
@@ -124,10 +124,10 @@ public class MainTest {
         }
         return historique;
     }
-    private BigDecimal initialBalance(float initialBalance) {
-        return new BigDecimal(String.valueOf(initialBalance));
+    private Money initialBalance(float initialBalance) {
+        return new Money(new BigDecimal(String.valueOf(initialBalance)));
     }
-    private BigDecimal amount(float amount) {
-        return new BigDecimal(String.valueOf(amount));
+    private Money amount(float amount) {
+        return new Money(new BigDecimal(String.valueOf(amount)));
     }
 }

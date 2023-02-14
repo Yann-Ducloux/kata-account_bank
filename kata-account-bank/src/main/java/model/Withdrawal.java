@@ -4,13 +4,13 @@ import java.math.BigDecimal;
 
 public class Withdrawal extends Operation {
 
-    public Withdrawal(BigDecimal amount) {
+    public Withdrawal(Money amount) {
         super(amount);
     }
 
     public void execute(Account account){
         account.subtractAmount(this.amount);
-        account.addOperations(this);
+        account.transaction(this);
     }
 
     @Override

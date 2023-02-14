@@ -62,12 +62,12 @@ class DepositTest {
     assertThat(account, is(account(291.98f)));
   }
   private Account account(float amount) {
-    return new Account(new BigDecimal(String.valueOf(amount)));
+    return new Account(new Money(new BigDecimal(String.valueOf(amount))));
   }
-  private BigDecimal initialBalance(float initialBalance) {
-    return new BigDecimal(String.valueOf(initialBalance));
+  private Money initialBalance(float initialBalance) {
+    return new Money(new BigDecimal(String.valueOf(initialBalance)));
   }
-  private BigDecimal amount(float amount) {
-    return new BigDecimal(String.valueOf(amount));
+  private Money amount(float amount) {
+    return new Money(new BigDecimal(String.valueOf(amount)));
   }
 }

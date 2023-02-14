@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class Account {
-    BigDecimal balance;
+    Money balance;
     List<IOperation> operations;
 
     private static final String LINE_BREAK = System.getProperty("line.separator");
     private static final String MONEY = "€";
 
-    public Account(BigDecimal balance) {
+    public Account(Money balance) {
         this.balance = balance;
         this.operations = new ArrayList<>();
     }
@@ -32,14 +32,14 @@ public class Account {
         return balance != null ? balance.hashCode() : 0;
     }
 
-    public void addAmount(BigDecimal balance) {
-        this.balance = this.balance.add(balance);
+    public void addAmount(Money balance) {
+        this.balance.add(balance);
     }
-    public void subtractAmount(BigDecimal balance) {
-        this.balance = this.balance.subtract(balance);
+    public void subtractAmount(Money balance) {
+        this.balance.subtract(balance);
     }
 
-    public void addOperations(IOperation operations) {
+    public void transaction(IOperation operations) {
         this.operations.add(operations);
     }
 
