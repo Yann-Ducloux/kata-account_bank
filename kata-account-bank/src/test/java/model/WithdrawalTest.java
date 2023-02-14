@@ -9,39 +9,13 @@ import static org.hamcrest.Matchers.is;
 
 class WithdrawalTest {
     @Test
-    void SingleWithdrawalInAccountEmptyTest() {
-        //GIVEN
-        Account account = new Account(new BigDecimal(String.valueOf(0f)));
-        Withdrawal withdrawal = new Withdrawal();
-
-        //WHEN
-        withdrawal.saveMoney(account,new BigDecimal(String.valueOf(893.46f)));
-
-        //THEN
-        assertThat(account, is(account(-893.46f)));
-    }
-    @Test
-    void MultipleWithdrawalInAccountEmptyTest() {
-        //GIVEN
-        Account account = new Account(new BigDecimal(String.valueOf(0f)));
-        Withdrawal withdrawal = new Withdrawal();
-
-        //WHEN
-        withdrawal.saveMoney(account,new BigDecimal(String.valueOf(308.50f)));
-        withdrawal.saveMoney(account,new BigDecimal(String.valueOf(972.30f)));
-
-        //THEN
-        assertThat(account, is(account(-1280.80f)));
-    }
-
-    @Test
     void SingleWithdrawalInAccountFillTest() {
         //GIVEN
         Account account = new Account(new BigDecimal(String.valueOf(561.22f)));
-        Withdrawal withdrawal = new Withdrawal();
+        Operation withdrawal = new Withdrawal(new BigDecimal(String.valueOf( 12.30f)));
 
         //WHEN
-        withdrawal.saveMoney(account,new BigDecimal(String.valueOf( 12.30f)));
+        withdrawal.saveMoney(account);
 
         //THEN
         assertThat(account, is(account(548.92f)));
@@ -50,14 +24,15 @@ class WithdrawalTest {
     void MultipleWithdrawalInAccountFillTest() {
         //GIVEN
         Account account = new Account(new BigDecimal(String.valueOf(383.76f)));
-        Withdrawal withdrawal = new Withdrawal();
+        Operation withdrawalFirst = new Withdrawal(new BigDecimal(String.valueOf( 63.79f)));
+        Operation withdrawalSecond = new Withdrawal(new BigDecimal(String.valueOf( 265.28f)));
 
         //WHEN
-        withdrawal.saveMoney(account,new BigDecimal(String.valueOf( 403.79f)));
-        withdrawal.saveMoney(account,new BigDecimal(String.valueOf( 465.28f)));
+        withdrawalFirst.saveMoney(account);
+        withdrawalSecond.saveMoney(account);
 
         //THEN
-        assertThat(account, is(account(-485.31f)));
+        assertThat(account, is(account(54.69f)));
     }
     private Account account(float amount) {
         return new Account(new BigDecimal(String.valueOf(amount)));

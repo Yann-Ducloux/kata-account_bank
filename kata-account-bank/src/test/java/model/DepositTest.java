@@ -12,10 +12,10 @@ class DepositTest {
   void SingleDepositInAccountEmptyTest() {
     //GIVEN
     Account account = new Account(new BigDecimal(String.valueOf(0f)));
-    Deposit deposit = new Deposit();
+    Operation deposit = new Deposit(new BigDecimal(String.valueOf(907.23f)));
 
     //WHEN
-    deposit.saveMoney(account,new BigDecimal(String.valueOf(907.23f)));
+    deposit.saveMoney(account);
 
     //THEN
     assertThat(account, is(account(907.23f)));
@@ -24,11 +24,12 @@ class DepositTest {
   void MultipleDepositInAccountEmptyTest() {
     //GIVEN
     Account account = new Account(new BigDecimal(String.valueOf(0f)));
-    Deposit deposit = new Deposit();
+    Operation depositFirst = new Deposit(new BigDecimal(String.valueOf(146.18f)));
+    Operation depositSecond = new Deposit(new BigDecimal(String.valueOf(147.30f)));
 
     //WHEN
-    deposit.saveMoney(account,new BigDecimal(String.valueOf(146.18f)));
-    deposit.saveMoney(account,new BigDecimal(String.valueOf(147.30f)));
+    depositFirst.saveMoney(account);
+    depositSecond.saveMoney(account);
 
     //THEN
     assertThat(account, is(account(293.48f)));
@@ -38,10 +39,10 @@ class DepositTest {
   void SingleDepositInAccountFillTest() {
     //GIVEN
     Account account = new Account(new BigDecimal(String.valueOf(393.12f)));
-    Deposit deposit = new Deposit();
+    Operation deposit = new Deposit(new BigDecimal(String.valueOf(80.00f)));
 
     //WHEN
-    deposit.saveMoney(account, new BigDecimal(String.valueOf(80.00f)));
+    deposit.saveMoney(account);
 
     //THEN
     assertThat(account, is(account(473.12f)));
@@ -50,11 +51,12 @@ class DepositTest {
   void MultipleDepositInAccountFillTest() {
     //GIVEN
     Account account = new Account(new BigDecimal(String.valueOf(182.91f)));
-    Deposit deposit = new Deposit();
+    Operation depositFirst = new Deposit(new BigDecimal(String.valueOf(62.07f)));
+    Operation depositSecond = new Deposit(new BigDecimal(String.valueOf(47.00f)));
 
     //WHEN
-    deposit.saveMoney(account, new BigDecimal(String.valueOf(62.07f)));
-    deposit.saveMoney(account, new BigDecimal(String.valueOf(47.00f)));
+    depositFirst.saveMoney(account);
+    depositSecond.saveMoney(account);
 
     //THEN
     assertThat(account, is(account(291.98f)));
