@@ -100,6 +100,26 @@ public class HistoryTest {
         //THEN
         assertThat(historique, is(historique(balance(54.69f),withdrawal(63.79f),withdrawal(265.28f))));
 
+    }    @Test
+    void MultipleDepositAndWithdrawalInAccountFillTest() {
+        //GIVEN
+        Account account = new Account(initialBalance(383.76f));
+        Operation depositFirst = new Deposit(amount(146.18f));
+        Operation withdrawalFirst = new Withdrawal(amount(63.79f));
+        Operation depositSecond = new Deposit(amount(147.30f));
+        Operation withdrawalSecond = new Withdrawal(amount(265.28f));
+
+        //WHEN
+        depositFirst.execute(account);
+        withdrawalFirst.execute(account);
+        depositSecond.execute(account);
+        withdrawalSecond.execute(account);
+        String historique = account.history();
+
+        //THEN
+        assertThat(historique, is(historique(balance(348.17f),deposit(146.18f),withdrawal(63.79f),
+                deposit(147.30f), withdrawal(265.28f))));
+
     }
 
 
