@@ -11,11 +11,11 @@ class DepositTest {
   @Test
   void SingleDepositInAccountEmptyTest() {
     //GIVEN
-    Account account = new Account(new BigDecimal(String.valueOf(0f)));
-    Operation deposit = new Deposit(new BigDecimal(String.valueOf(907.23f)));
+    Account account = new Account(initialBalance(0f));
+    Operation deposit = new Deposit(amount(907.23f));
 
     //WHEN
-    deposit.saveMoney(account);
+    deposit.execute(account);
 
     //THEN
     assertThat(account, is(account(907.23f)));
@@ -23,13 +23,13 @@ class DepositTest {
   @Test
   void MultipleDepositInAccountEmptyTest() {
     //GIVEN
-    Account account = new Account(new BigDecimal(String.valueOf(0f)));
-    Operation depositFirst = new Deposit(new BigDecimal(String.valueOf(146.18f)));
-    Operation depositSecond = new Deposit(new BigDecimal(String.valueOf(147.30f)));
+    Account account = new Account(initialBalance(0f));
+    Operation depositFirst = new Deposit(amount(146.18f));
+    Operation depositSecond = new Deposit(amount(147.30f));
 
     //WHEN
-    depositFirst.saveMoney(account);
-    depositSecond.saveMoney(account);
+    depositFirst.execute(account);
+    depositSecond.execute(account);
 
     //THEN
     assertThat(account, is(account(293.48f)));
@@ -38,11 +38,11 @@ class DepositTest {
   @Test
   void SingleDepositInAccountFillTest() {
     //GIVEN
-    Account account = new Account(new BigDecimal(String.valueOf(393.12f)));
-    Operation deposit = new Deposit(new BigDecimal(String.valueOf(80.00f)));
+    Account account = new Account(initialBalance(393.12f));
+    Operation deposit = new Deposit(amount(80.00f));
 
     //WHEN
-    deposit.saveMoney(account);
+    deposit.execute(account);
 
     //THEN
     assertThat(account, is(account(473.12f)));
@@ -50,18 +50,24 @@ class DepositTest {
   @Test
   void MultipleDepositInAccountFillTest() {
     //GIVEN
-    Account account = new Account(new BigDecimal(String.valueOf(182.91f)));
-    Operation depositFirst = new Deposit(new BigDecimal(String.valueOf(62.07f)));
-    Operation depositSecond = new Deposit(new BigDecimal(String.valueOf(47.00f)));
+    Account account = new Account(initialBalance(182.91f));
+    Operation depositFirst = new Deposit(amount(62.07f));
+    Operation depositSecond = new Deposit(amount(47.00f));
 
     //WHEN
-    depositFirst.saveMoney(account);
-    depositSecond.saveMoney(account);
+    depositFirst.execute(account);
+    depositSecond.execute(account);
 
     //THEN
     assertThat(account, is(account(291.98f)));
   }
   private Account account(float amount) {
     return new Account(new BigDecimal(String.valueOf(amount)));
+  }
+  private BigDecimal initialBalance(float initialBalance) {
+    return new BigDecimal(String.valueOf(initialBalance));
+  }
+  private BigDecimal amount(float amount) {
+    return new BigDecimal(String.valueOf(amount));
   }
 }

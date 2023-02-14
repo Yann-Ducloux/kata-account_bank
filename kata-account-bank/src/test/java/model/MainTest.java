@@ -16,11 +16,11 @@ public class MainTest {
     @Test
     void SingleDepositInAccountEmptyTest() {
         //GIVEN
-        Account account = new Account(new BigDecimal(String.valueOf(0f)));
-        Operation deposit = new Deposit(new BigDecimal(String.valueOf(907.23f)));
+        Account account = new Account(initialBalance(0f));
+        Operation deposit = new Deposit(amount(907.23f));
 
         //WHEN
-        deposit.saveMoney(account);
+        deposit.execute(account);
         String historique = account.history();
 
         //THEN
@@ -30,13 +30,13 @@ public class MainTest {
     @Test
     void MultipleDepositInAccountEmptyTest() {
         //GIVEN
-        Account account = new Account(new BigDecimal(String.valueOf(0f)));
-        Operation depositFirst = new Deposit(new BigDecimal(String.valueOf(146.18f)));
-        Operation depositSecond = new Deposit(new BigDecimal(String.valueOf(147.30f)));
+        Account account = new Account(initialBalance(0f));
+        Operation depositFirst = new Deposit(amount(146.18f));
+        Operation depositSecond = new Deposit(amount(147.30f));
 
         //WHEN
-        depositFirst.saveMoney(account);
-        depositSecond.saveMoney(account);
+        depositFirst.execute(account);
+        depositSecond.execute(account);
         String historique = account.history();
 
         //THEN
@@ -46,11 +46,11 @@ public class MainTest {
     @Test
     void SingleDepositInAccountFillTest() {
         //GIVEN
-        Account account = new Account(new BigDecimal(String.valueOf(393.12f)));
-        Operation deposit = new Deposit(new BigDecimal(String.valueOf(80.00f)));
+        Account account = new Account(initialBalance(393.12f));
+        Operation deposit = new Deposit(amount(80.00f));
 
         //WHEN
-        deposit.saveMoney(account);
+        deposit.execute(account);
         String historique = account.history();
 
         //THEN
@@ -60,13 +60,13 @@ public class MainTest {
     @Test
     void MultipleDepositInAccountFillTest() {
         //GIVEN
-        Account account = new Account(new BigDecimal(String.valueOf(182.91f)));
-        Operation depositFirst = new Deposit(new BigDecimal(String.valueOf(62.07f)));
-        Operation depositSecond = new Deposit(new BigDecimal(String.valueOf(47.00f)));
+        Account account = new Account(initialBalance(182.91f));
+        Operation depositFirst = new Deposit(amount(62.07f));
+        Operation depositSecond = new Deposit(amount(47.00f));
 
         //WHEN
-        depositFirst.saveMoney(account);
-        depositSecond.saveMoney(account);
+        depositFirst.execute(account);
+        depositSecond.execute(account);
         String historique = account.history();
 
         //THEN
@@ -75,11 +75,11 @@ public class MainTest {
     @Test
     void SingleWithdrawalInAccountFillTest() {
         //GIVEN
-        Account account = new Account(new BigDecimal(String.valueOf(561.22f)));
-        Operation withdrawal = new Withdrawal(new BigDecimal(String.valueOf( 12.30f)));
+        Account account = new Account(initialBalance(561.22f));
+        Operation withdrawal = new Withdrawal(amount( 12.30f));
 
         //WHEN
-        withdrawal.saveMoney(account);
+        withdrawal.execute(account);
         String historique = account.history();
 
         //THEN
@@ -88,13 +88,13 @@ public class MainTest {
     @Test
     void MultipleWithdrawalInAccountFillTest() {
         //GIVEN
-        Account account = new Account(new BigDecimal(String.valueOf(383.76f)));
-        Operation withdrawalFirst = new Withdrawal(new BigDecimal(String.valueOf( 63.79f)));
-        Operation withdrawalSecond = new Withdrawal(new BigDecimal(String.valueOf( 265.28f)));
+        Account account = new Account(initialBalance(383.76f));
+        Operation withdrawalFirst = new Withdrawal(amount( 63.79f));
+        Operation withdrawalSecond = new Withdrawal(amount( 265.28f));
 
         //WHEN
-        withdrawalFirst.saveMoney(account);
-        withdrawalSecond.saveMoney(account);
+        withdrawalFirst.execute(account);
+        withdrawalSecond.execute(account);
         String historique = account.history();
 
         //THEN
@@ -123,5 +123,11 @@ public class MainTest {
             historique += line.toString();
         }
         return historique;
+    }
+    private BigDecimal initialBalance(float initialBalance) {
+        return new BigDecimal(String.valueOf(initialBalance));
+    }
+    private BigDecimal amount(float amount) {
+        return new BigDecimal(String.valueOf(amount));
     }
 }

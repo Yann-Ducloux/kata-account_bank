@@ -8,7 +8,7 @@ public class Withdrawal extends Operation {
         super(amount);
     }
 
-    public void saveMoney(Account account){
+    public void execute(Account account){
         account.subtractAmount(this.amount);
         account.addOperations(this);
     }

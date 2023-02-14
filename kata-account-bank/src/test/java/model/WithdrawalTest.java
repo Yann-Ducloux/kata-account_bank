@@ -11,11 +11,11 @@ class WithdrawalTest {
     @Test
     void SingleWithdrawalInAccountFillTest() {
         //GIVEN
-        Account account = new Account(new BigDecimal(String.valueOf(561.22f)));
-        Operation withdrawal = new Withdrawal(new BigDecimal(String.valueOf( 12.30f)));
+        Account account = new Account(initialBalance(561.22f));
+        Operation withdrawal = new Withdrawal(amount( 12.30f));
 
         //WHEN
-        withdrawal.saveMoney(account);
+        withdrawal.execute(account);
 
         //THEN
         assertThat(account, is(account(548.92f)));
@@ -23,18 +23,25 @@ class WithdrawalTest {
     @Test
     void MultipleWithdrawalInAccountFillTest() {
         //GIVEN
-        Account account = new Account(new BigDecimal(String.valueOf(383.76f)));
-        Operation withdrawalFirst = new Withdrawal(new BigDecimal(String.valueOf( 63.79f)));
-        Operation withdrawalSecond = new Withdrawal(new BigDecimal(String.valueOf( 265.28f)));
+        Account account = new Account(initialBalance(383.76f));
+        Operation withdrawalFirst = new Withdrawal(amount( 63.79f));
+        Operation withdrawalSecond = new Withdrawal(amount( 265.28f));
 
         //WHEN
-        withdrawalFirst.saveMoney(account);
-        withdrawalSecond.saveMoney(account);
+        withdrawalFirst.execute(account);
+        withdrawalSecond.execute(account);
 
         //THEN
         assertThat(account, is(account(54.69f)));
     }
     private Account account(float amount) {
         return new Account(new BigDecimal(String.valueOf(amount)));
+    }
+
+    private BigDecimal initialBalance(float initialBalance) {
+        return new BigDecimal(String.valueOf(initialBalance));
+    }
+    private BigDecimal amount(float amount) {
+        return new BigDecimal(String.valueOf(amount));
     }
 }
