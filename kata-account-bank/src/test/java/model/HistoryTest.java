@@ -14,114 +14,92 @@ public class HistoryTest {
     private static final String SEPARATOR = " | ";
 
     @Test
-    void SingleDepositInAccountEmptyTest() {
+    void SingleDepositTest() {
         //GIVEN
-        Account account = new Account(initialBalance(0f));
+        Account account = new Account();
         Operation deposit = new Deposit(amount(907.23f));
 
         //WHEN
         deposit.execute(account);
-        String historique = account.history();
+        String history = account.history();
 
         //THEN
-        assertThat(historique, is(historique(balance(907.23f),deposit(907.23f))));
+        assertThat(history, is(historique(balance(907.23f),deposit(907.23f))));
     }
 
     @Test
-    void MultipleDepositInAccountEmptyTest() {
+    void MultipleDepositTest() {
         //GIVEN
-        Account account = new Account(initialBalance(0f));
+        Account account = new Account();
         Operation depositFirst = new Deposit(amount(146.18f));
         Operation depositSecond = new Deposit(amount(147.30f));
 
         //WHEN
         depositFirst.execute(account);
         depositSecond.execute(account);
-        String historique = account.history();
+        String history = account.history();
 
         //THEN
-        assertThat(historique, is(historique(balance(293.48f),deposit(146.18f), deposit(147.30f))));
-    }
-
-    @Test
-    void SingleDepositInAccountFillTest() {
-        //GIVEN
-        Account account = new Account(initialBalance(393.12f));
-        Operation deposit = new Deposit(amount(80.00f));
-
-        //WHEN
-        deposit.execute(account);
-        String historique = account.history();
-
-        //THEN
-        assertThat(historique, is(historique(balance(473.12f),deposit(80.00f))));
-    }
-
-    @Test
-    void MultipleDepositInAccountFillTest() {
-        //GIVEN
-        Account account = new Account(initialBalance(182.91f));
-        Operation depositFirst = new Deposit(amount(62.07f));
-        Operation depositSecond = new Deposit(amount(47.00f));
-
-        //WHEN
-        depositFirst.execute(account);
-        depositSecond.execute(account);
-        String historique = account.history();
-
-        //THEN
-        assertThat(historique, is(historique(balance(291.98f),deposit(62.07f), deposit(47.00f))));
+        assertThat(history, is(historique(balance(293.48f),deposit(146.18f), deposit(147.30f))));
     }
     @Test
-    void SingleWithdrawalInAccountFillTest() {
+    void SingleWithdrawalTest() {
         //GIVEN
-        Account account = new Account(initialBalance(561.22f));
+        Account account = new Account();
+        Operation deposit = new Deposit(amount(561.22f));
         Operation withdrawal = new Withdrawal(amount( 12.30f));
 
         //WHEN
+        deposit.execute(account);
         withdrawal.execute(account);
-        String historique = account.history();
+        String history = account.history();
 
         //THEN
-        assertThat(historique, is(historique(balance(548.92f),withdrawal(12.30f))));
+        assertThat(history, is(historique(balance(548.92f),
+                deposit(561.22f),withdrawal(12.30f))));
     }
     @Test
-    void MultipleWithdrawalInAccountFillTest() {
+    void MultipleWithdrawalTest() {
         //GIVEN
-        Account account = new Account(initialBalance(383.76f));
+        Account account = new Account();
+        Operation deposit = new Deposit(amount(383.76f));
         Operation withdrawalFirst = new Withdrawal(amount( 63.79f));
         Operation withdrawalSecond = new Withdrawal(amount( 265.28f));
 
         //WHEN
+        deposit.execute(account);
         withdrawalFirst.execute(account);
         withdrawalSecond.execute(account);
-        String historique = account.history();
+        String history = account.history();
 
         //THEN
-        assertThat(historique, is(historique(balance(54.69f),withdrawal(63.79f),withdrawal(265.28f))));
+        assertThat(history, is(historique(balance(54.69f),deposit(383.76f),
+                withdrawal(63.79f),withdrawal(265.28f))));
 
     }    @Test
-    void MultipleDepositAndWithdrawalInAccountFillTest() {
+    void MultipleDepositAndWithdrawalTest() {
         //GIVEN
-        Account account = new Account(initialBalance(383.76f));
+        Account account = new Account();
+        Operation depositInitial = new Deposit(amount(383.76f));
         Operation depositFirst = new Deposit(amount(146.18f));
         Operation withdrawalFirst = new Withdrawal(amount(63.79f));
         Operation depositSecond = new Deposit(amount(147.30f));
         Operation withdrawalSecond = new Withdrawal(amount(265.28f));
 
         //WHEN
+        depositInitial.execute(account);
         depositFirst.execute(account);
         withdrawalFirst.execute(account);
         depositSecond.execute(account);
         withdrawalSecond.execute(account);
-        String historique = account.history();
+        String history = account.history();
 
         //THEN
-        assertThat(historique, is(historique(balance(348.17f),deposit(146.18f),withdrawal(63.79f),
+        assertThat(history, is(historique(balance(348.17f),deposit(383.76f),
+                deposit(146.18f),withdrawal(63.79f),
                 deposit(147.30f), withdrawal(265.28f))));
 
     }
-
 
     private String deposit(float deposit) {
         return LINE_BREAK + TypeOperation.DEPOSIT + "   " + SEPARATOR + LocalDate.now().toString() + SEPARATOR + deposit + MONEY;
@@ -144,9 +122,7 @@ public class HistoryTest {
         }
         return historique;
     }
-    private Money initialBalance(float initialBalance) {
-        return new Money(new BigDecimal(String.valueOf(initialBalance)));
-    }
+
     private Money amount(float amount) {
         return new Money(new BigDecimal(String.valueOf(amount)));
     }

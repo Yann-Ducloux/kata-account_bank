@@ -18,12 +18,9 @@ public class Money {
         this.value = value;
     }
 
-    public void add(Money balance) {
-        this.value = this.value.add(balance.getValue());
-    }
-
-    public void subtract(Money balance) {
-        this.value = this.value.subtract(balance.getValue());
+    @Override
+    public String toString() {
+        return value.toString();
     }
 
     @Override
@@ -31,12 +28,7 @@ public class Money {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Money money = (Money) o;
-        return Objects.equals(value, money.value);
-    }
-
-    @Override
-    public String toString() {
-        return value.toString();
+        return value.equals(money.value);
     }
 
     @Override

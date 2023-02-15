@@ -8,13 +8,13 @@ public class Withdrawal extends Operation {
         super(amount);
     }
 
-    public void execute(Account account){
-        account.subtractAmount(this.amount);
-        account.transaction(this);
-    }
-
     @Override
     public String print() {
         return TypeOperation.WITHDRAWAL + SEPARATOR + this.date + SEPARATOR + this.amount + MONEY;
+    }
+
+    @Override
+    public Money amount() {
+        return new Money(this.amount.getValue().negate());
     }
 }

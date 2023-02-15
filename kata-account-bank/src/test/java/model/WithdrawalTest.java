@@ -9,33 +9,38 @@ import static org.hamcrest.Matchers.is;
 
 class WithdrawalTest {
     @Test
-    void SingleWithdrawalInAccountFillTest() {
+    void SingleWithdrawalTest() {
         //GIVEN
-        Account account = new Account(initialBalance(561.22f));
+        Account account = new Account();
+        Operation deposit = new Deposit(amount(561.22f));
         Operation withdrawal = new Withdrawal(amount( 12.30f));
 
         //WHEN
+        deposit.execute(account);
         withdrawal.execute(account);
 
         //THEN
-        assertThat(account, is(account(548.92f)));
+        assertThat(account.calculateBalance(), is(money(548.92f)));
     }
     @Test
-    void MultipleWithdrawalInAccountFillTest() {
+    void MultipleWithdrawalTest() {
         //GIVEN
-        Account account = new Account(initialBalance(383.76f));
+        Account account = new Account();
+        Operation deposit = new Deposit(amount(383.76f));
         Operation withdrawalFirst = new Withdrawal(amount( 63.79f));
         Operation withdrawalSecond = new Withdrawal(amount( 265.28f));
 
         //WHEN
+        deposit.execute(account);
         withdrawalFirst.execute(account);
         withdrawalSecond.execute(account);
 
         //THEN
-        assertThat(account, is(account(54.69f)));
+        assertThat(account.calculateBalance(), is(money(54.69f)));
     }
-    private Account account(float amount) {
-        return new Account(new Money(new BigDecimal(String.valueOf(amount))));
+
+    private Money money(float amount) {
+        return new Money(new BigDecimal(String.valueOf(amount)));
     }
     private Money initialBalance(float initialBalance) {
         return new Money(new BigDecimal(String.valueOf(initialBalance)));

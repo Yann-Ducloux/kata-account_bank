@@ -10,6 +10,9 @@ public abstract class Operation implements IOperation{
     public static final String SEPARATOR = " | ";
 
     public abstract String print();
+    public void execute(Account account){
+        account.transaction(this);
+    }
 
     public Operation(Money amount) {
         this.amount = amount;

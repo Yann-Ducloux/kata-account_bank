@@ -8,13 +8,13 @@ public class Deposit extends Operation {
         super(amount);
     }
 
-    public void execute(Account account){
-        account.addAmount(this.amount);
-        account.transaction(this);
-    }
-
     @Override
     public String print() {
         return TypeOperation.DEPOSIT + "   " + SEPARATOR + this.date + SEPARATOR + this.amount + MONEY;
+    }
+
+    @Override
+    public Money amount() {
+        return this.amount;
     }
 }
