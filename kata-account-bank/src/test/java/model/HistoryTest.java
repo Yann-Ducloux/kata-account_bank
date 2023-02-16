@@ -10,8 +10,6 @@ import static org.hamcrest.Matchers.is;
 
 public class HistoryTest {
     private static final String LINE_BREAK = System.getProperty("line.separator");
-    private static final String MONEY = "€";
-    private static final String SEPARATOR = " | ";
 
     @Test
     void SingleDepositTest() {
@@ -24,7 +22,10 @@ public class HistoryTest {
         String history = account.history();
 
         //THEN
-        assertThat(history, is(historique(balance(907.23f),deposit(907.23f))));
+        assertThat(history,is(
+                "The balance 907.23€" + LINE_BREAK +
+                        "operation  | date       | amount" + LINE_BREAK +
+                        TypeOperation.DEPOSIT + "    | " + LocalDate.now()+ " | 907.23€"));
     }
 
     @Test
@@ -40,7 +41,11 @@ public class HistoryTest {
         String history = account.history();
 
         //THEN
-        assertThat(history, is(historique(balance(293.48f),deposit(146.18f), deposit(147.30f))));
+        assertThat(history, is(
+                "The balance 293.48€" + LINE_BREAK +
+                        "operation  | date       | amount" + LINE_BREAK +
+                        TypeOperation.DEPOSIT + "    | " + LocalDate.now()+ " | 146.18€" + LINE_BREAK +
+                        TypeOperation.DEPOSIT + "    | " + LocalDate.now()+ " | 147.3€"));
     }
     @Test
     void SingleWithdrawalTest() {
@@ -55,8 +60,11 @@ public class HistoryTest {
         String history = account.history();
 
         //THEN
-        assertThat(history, is(historique(balance(548.92f),
-                deposit(561.22f),withdrawal(12.30f))));
+        assertThat(history, is(
+                "The balance 548.92€" + LINE_BREAK +
+                        "operation  | date       | amount" + LINE_BREAK +
+                        TypeOperation.DEPOSIT + "    | " + LocalDate.now()+ " | 561.22€" + LINE_BREAK +
+                        TypeOperation.WITHDRAWAL + " | " + LocalDate.now()+ " | 12.3€"));
     }
     @Test
     void MultipleWithdrawalTest() {
@@ -73,10 +81,15 @@ public class HistoryTest {
         String history = account.history();
 
         //THEN
-        assertThat(history, is(historique(balance(54.69f),deposit(383.76f),
-                withdrawal(63.79f),withdrawal(265.28f))));
+        assertThat(history, is(
+                "The balance 54.69€" + LINE_BREAK +
+                        "operation  | date       | amount" + LINE_BREAK +
+                        TypeOperation.DEPOSIT + "    | " + LocalDate.now()+ " | 383.76€" + LINE_BREAK +
+                        TypeOperation.WITHDRAWAL + " | " + LocalDate.now()+ " | 63.79€" + LINE_BREAK +
+                        TypeOperation.WITHDRAWAL + " | " + LocalDate.now()+ " | 265.28€"));
+    }
 
-    }    @Test
+    @Test
     void MultipleDepositAndWithdrawalTest() {
         //GIVEN
         Account account = new Account();
@@ -95,32 +108,14 @@ public class HistoryTest {
         String history = account.history();
 
         //THEN
-        assertThat(history, is(historique(balance(348.17f),deposit(383.76f),
-                deposit(146.18f),withdrawal(63.79f),
-                deposit(147.30f), withdrawal(265.28f))));
-
-    }
-
-    private String deposit(float deposit) {
-        return LINE_BREAK + TypeOperation.DEPOSIT + "   " + SEPARATOR + LocalDate.now().toString() + SEPARATOR + deposit + MONEY;
-    }
-
-    private String withdrawal(float withdrawal) {
-        return LINE_BREAK + TypeOperation.WITHDRAWAL + SEPARATOR + LocalDate.now().toString() + SEPARATOR + withdrawal + MONEY;
-    }
-
-    private float balance(float balance) {
-        return balance;
-    }
-
-    private String historique(float balance, String ... lineHistorique) {
-        String historique = "The balance " + balance + MONEY + LINE_BREAK +
-                "operation " + SEPARATOR + "date      " + SEPARATOR +
-                "amount";
-        for (String line: lineHistorique) {
-            historique += line.toString();
-        }
-        return historique;
+        assertThat(history, is(
+                "The balance 348.17€" + LINE_BREAK +
+                        "operation  | date       | amount" + LINE_BREAK +
+                        TypeOperation.DEPOSIT + "    | " + LocalDate.now()+ " | 383.76€" + LINE_BREAK +
+                        TypeOperation.DEPOSIT + "    | " + LocalDate.now()+ " | 146.18€" + LINE_BREAK +
+                        TypeOperation.WITHDRAWAL + " | " + LocalDate.now()+ " | 63.79€" + LINE_BREAK +
+                        TypeOperation.DEPOSIT + "    | " + LocalDate.now()+ " | 147.3€" + LINE_BREAK +
+                        TypeOperation.WITHDRAWAL + " | " + LocalDate.now()+ " | 265.28€"));
     }
 
     private Money amount(float amount) {
