@@ -1,10 +1,7 @@
 package model;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.BinaryOperator;
 
 public class Account {
     List<IOperation> operations;
@@ -16,7 +13,7 @@ public class Account {
         this.operations = new ArrayList<>();
     }
 
-    public Money calculateBalance() {
+    public Money balance() {
         return this.operations.stream()
                 .map(IOperation::amount)
                 .reduce(new Money(0f), Money::add);
@@ -27,10 +24,10 @@ public class Account {
     }
 
     public String history() {
-        String historique = "The balance " + this.calculateBalance().toString() + MONEY + LINE_BREAK;
+        String historique = "The balance " + this.balance().toString() + MONEY + LINE_BREAK;
         historique += "operation  | date       | amount";
         historique += this.operations.stream()
-                .map(IOperation::print)
+                .map(IOperation::toString)
                 .reduce("", (s, s2) -> {
                     s += LINE_BREAK + s2;
                     return s;

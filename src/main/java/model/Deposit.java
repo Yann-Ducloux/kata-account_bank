@@ -7,8 +7,8 @@ public class Deposit extends Operation {
     }
 
     @Override
-    public String print() {
-        return TypeOperation.DEPOSIT + "   " + SEPARATOR + this.date + SEPARATOR + this.amount + MONEY;
+    public String toString() {
+        return "DEPOSIT    | " + this.date + " | " + this.amount + MONEY;
     }
 
 

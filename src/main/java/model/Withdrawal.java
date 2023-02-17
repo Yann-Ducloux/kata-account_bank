@@ -9,8 +9,8 @@ public class Withdrawal extends Operation {
     }
 
     @Override
-    public String print() {
-        return TypeOperation.WITHDRAWAL + SEPARATOR + this.date + SEPARATOR + this.amount + MONEY;
+    public String toString() {
+        return "WITHDRAWAL | " + this.date + " | " + this.amount + MONEY;
     }
 
     @Override

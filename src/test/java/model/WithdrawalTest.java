@@ -2,8 +2,6 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -12,33 +10,36 @@ class WithdrawalTest {
     void SingleWithdrawalTest() {
         //GIVEN
         Account account = new Account();
-        Operation deposit = new Deposit(amount(561.22f));
-        Operation withdrawal = new Withdrawal(amount( 12.30f));
+        deposit(amount(561.22f)).execute(account);
 
         //WHEN
-        deposit.execute(account);
-        withdrawal.execute(account);
+        withdrawal(amount( 12.30f)).execute(account);
 
         //THEN
-        assertThat(account.calculateBalance(), is(amount(548.92f)));
+        assertThat(account.balance(), is(amount(548.92f)));
     }
     @Test
     void MultipleWithdrawalTest() {
         //GIVEN
         Account account = new Account();
-        Operation deposit = new Deposit(amount(383.76f));
-        Operation withdrawalFirst = new Withdrawal(amount( 63.79f));
-        Operation withdrawalSecond = new Withdrawal(amount( 265.28f));
+        deposit(amount(383.76f)).execute(account);
 
         //WHEN
-        deposit.execute(account);
-        withdrawalFirst.execute(account);
-        withdrawalSecond.execute(account);
+        withdrawal(amount( 63.79f)).execute(account);
+        withdrawal(amount( 265.28f)).execute(account);
 
         //THEN
-        assertThat(account.calculateBalance(), is(amount(54.69f)));
+        assertThat(account.balance(), is(amount(54.69f)));
     }
 
+
+    private Deposit deposit(Money amount) {
+        return new Deposit(amount);
+    }
+
+    private Withdrawal withdrawal(Money amount) {
+        return new Withdrawal(amount);
+    }
     private Money amount(float amount) {
         return new Money(amount);
     }
