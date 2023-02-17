@@ -19,9 +19,6 @@ public class Money {
     public Money add(Money money) {
         return new Money(value.add(money.value));
     }
-    public Money subtract(Money money) {
-        return new Money(value.subtract(money.value));
-    }
 
     @Override
     public String toString() {

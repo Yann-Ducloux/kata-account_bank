@@ -17,9 +17,9 @@ public class Account {
     }
 
     public Money calculateBalance() {
-        return new Money(this.operations.stream()
-                .map(element -> element.amount().getValue())
-                .reduce(BigDecimal.ZERO, BigDecimal::add));
+        return this.operations.stream()
+                .map(element -> element.amount())
+                .reduce(new Money(0f), Money::add);
     }
 
     public void transaction(IOperation operations) {
