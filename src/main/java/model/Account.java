@@ -18,7 +18,7 @@ public class Account {
 
     public Money calculateBalance() {
         return this.operations.stream()
-                .map(element -> element.amount())
+                .map(IOperation::amount)
                 .reduce(new Money(0f), Money::add);
     }
 
@@ -29,9 +29,12 @@ public class Account {
     public String history() {
         String historique = "The balance " + this.calculateBalance().toString() + MONEY + LINE_BREAK;
         historique += "operation  | date       | amount";
-        for (IOperation operation : operations) {
-            historique += LINE_BREAK + operation.print();
-        }
+        historique += this.operations.stream()
+                .map(IOperation::print)
+                .reduce("", (s, s2) -> {
+                    s += LINE_BREAK + s2;
+                    return s;
+                });
         return historique;
     }
 }
