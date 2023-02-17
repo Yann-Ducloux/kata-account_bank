@@ -111,14 +111,15 @@ public class HistoryTest {
         assertThat(history, is(
                 "The balance 348.17€" + LINE_BREAK +
                         "operation  | date       | amount" + LINE_BREAK +
-                        TypeOperation.DEPOSIT + "    | " + LocalDate.now()+ " | 383.76€" + LINE_BREAK +
-                        TypeOperation.DEPOSIT + "    | " + LocalDate.now()+ " | 146.18€" + LINE_BREAK +
-                        TypeOperation.WITHDRAWAL + " | " + LocalDate.now()+ " | 63.79€" + LINE_BREAK +
-                        TypeOperation.DEPOSIT + "    | " + LocalDate.now()+ " | 147.3€" + LINE_BREAK +
-                        TypeOperation.WITHDRAWAL + " | " + LocalDate.now()+ " | 265.28€"));
+                        "DEPOSIT    | 2023-02-17 | 383.76€" + LINE_BREAK +
+                        "DEPOSIT    | " + LocalDate.now() + " | 146.18€" + LINE_BREAK +
+                        "WITHDRAWAL | " + LocalDate.now() + " | 63.79€" + LINE_BREAK +
+                        "DEPOSIT    | " + LocalDate.now() + " | 147.3€" + LINE_BREAK +
+                        "WITHDRAWAL | " + LocalDate.now() + " | 265.28€"));
     }
 
+
     private Money amount(float amount) {
-        return new Money(new BigDecimal(String.valueOf(amount)));
+        return new Money(amount);
     }
 }

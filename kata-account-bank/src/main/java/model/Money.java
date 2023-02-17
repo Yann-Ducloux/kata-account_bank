@@ -5,7 +5,9 @@ import java.util.Objects;
 
 public class Money {
     private BigDecimal value;
-
+    public Money(float value) {
+        this.value = new BigDecimal(String.valueOf(value));
+    }
     public Money(BigDecimal value) {
         this.value = value;
     }
@@ -14,8 +16,11 @@ public class Money {
         return value;
     }
 
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public Money add(Money money) {
+        return new Money(value.add(money.value));
+    }
+    public Money subtract(Money money) {
+        return new Money(value.subtract(money.value));
     }
 
     @Override

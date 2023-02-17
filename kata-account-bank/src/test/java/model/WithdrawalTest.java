@@ -20,7 +20,7 @@ class WithdrawalTest {
         withdrawal.execute(account);
 
         //THEN
-        assertThat(account.calculateBalance(), is(money(548.92f)));
+        assertThat(account.calculateBalance(), is(amount(548.92f)));
     }
     @Test
     void MultipleWithdrawalTest() {
@@ -36,16 +36,10 @@ class WithdrawalTest {
         withdrawalSecond.execute(account);
 
         //THEN
-        assertThat(account.calculateBalance(), is(money(54.69f)));
+        assertThat(account.calculateBalance(), is(amount(54.69f)));
     }
 
-    private Money money(float amount) {
-        return new Money(new BigDecimal(String.valueOf(amount)));
-    }
-    private Money initialBalance(float initialBalance) {
-        return new Money(new BigDecimal(String.valueOf(initialBalance)));
-    }
     private Money amount(float amount) {
-        return new Money(new BigDecimal(String.valueOf(amount)));
+        return new Money(amount);
     }
 }

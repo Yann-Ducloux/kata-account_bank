@@ -18,8 +18,9 @@ class DepositTest {
     deposit.execute(account);
 
     //THEN
-    assertThat(account.calculateBalance(), is(money(907.23f)));
+    assertThat(account.calculateBalance(), is(amount(907.23f)));
   }
+
   @Test
   void MultipleDepositTest() {
     //GIVEN
@@ -32,15 +33,10 @@ class DepositTest {
     depositSecond.execute(account);
 
     //THEN
-    assertThat(account.calculateBalance(), is(money(293.48f)));
+    assertThat(account.calculateBalance(), is(amount(293.48f)));
   }
-  private Money money(float amount) {
-    return new Money(new BigDecimal(String.valueOf(amount)));
-  }
-  private Money initialBalance(float initialBalance) {
-    return new Money(new BigDecimal(String.valueOf(initialBalance)));
-  }
+
   private Money amount(float amount) {
-    return new Money(new BigDecimal(String.valueOf(amount)));
+    return new Money(amount);
   }
 }

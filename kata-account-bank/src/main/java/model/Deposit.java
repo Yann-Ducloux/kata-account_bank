@@ -1,7 +1,5 @@
 package model;
 
-import java.math.BigDecimal;
-
 public class Deposit extends Operation {
 
     public Deposit(Money amount) {
@@ -13,8 +11,14 @@ public class Deposit extends Operation {
         return TypeOperation.DEPOSIT + "   " + SEPARATOR + this.date + SEPARATOR + this.amount + MONEY;
     }
 
+
     @Override
     public Money amount() {
         return this.amount;
+    }
+
+    @Override
+    public Money applyOn(Money money) {
+        return this.amount.add(money);
     }
 }

@@ -2,7 +2,9 @@ package model;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.BinaryOperator;
 
 public class Account {
     List<IOperation> operations;
@@ -18,6 +20,7 @@ public class Account {
         return new Money(this.operations.stream()
                 .map(element -> element.amount().getValue())
                 .reduce(BigDecimal.ZERO, BigDecimal::add));
+//        return this.operations.stream().reduce(new Money(0f), IOperation::applyOn);
     }
 
     public void transaction(IOperation operations) {
