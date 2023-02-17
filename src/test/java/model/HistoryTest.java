@@ -47,10 +47,10 @@ class HistoryTest {
     void SingleWithdrawalTest() {
         //GIVEN
         Account account = new Account();
-
-        //WHEN
         deposit(amount(561.22f)).execute(account);
         withdrawal(amount( 12.30f)).execute(account);
+
+        //WHEN
         String history = account.history();
 
         //THEN
