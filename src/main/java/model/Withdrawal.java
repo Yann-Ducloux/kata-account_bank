@@ -17,9 +17,4 @@ public class Withdrawal extends Operation {
     public Money amount() {
         return new Money(this.amount.getValue().negate());
     }
-
-    @Override
-    public Money applyOn(Money money) {
-        return this.amount.subtract(money);
-    }
 }

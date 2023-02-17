@@ -16,9 +16,4 @@ public class Deposit extends Operation {
     public Money amount() {
         return this.amount;
     }
-
-    @Override
-    public Money applyOn(Money money) {
-        return this.amount.add(money);
-    }
 }
