@@ -1,7 +1,5 @@
 package model;
 
-import java.math.BigDecimal;
-
 public class Withdrawal extends Operation {
 
     public Withdrawal(Money amount) {

@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class HistoryTest {
+class HistoryTest {
     private static final String LINE_BREAK = System.getProperty("line.separator");
 
     @Test

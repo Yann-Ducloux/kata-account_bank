@@ -1,6 +1,5 @@
 package model;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public abstract class Operation implements IOperation{
@@ -14,7 +13,7 @@ public abstract class Operation implements IOperation{
         account.transaction(this);
     }
 
-    public Operation(Money amount) {
+    protected Operation(Money amount) {
         this.amount = amount;
         this.date = LocalDate.now();
     }
