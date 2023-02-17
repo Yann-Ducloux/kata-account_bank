@@ -20,7 +20,7 @@ public class Account {
         return new Money(this.operations.stream()
                 .map(element -> element.amount().getValue())
                 .reduce(BigDecimal.ZERO, BigDecimal::add));
-//        return this.operations.stream().reduce(new Money(0f), IOperation::applyOn);
+//        return this.operations.stream().map(element -> element.amount()).reduce(new Money(0f), (money, iOperation) -> iOperation.applyOn(money));
     }
 
     public void transaction(IOperation operations) {
