@@ -11,7 +11,6 @@ public class Deposit extends Operation {
         return "DEPOSIT    | " + this.date + " | " + this.amount + MONEY;
     }
 
-
     @Override
     public Money amount() {
         return this.amount;
