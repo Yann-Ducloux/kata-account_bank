@@ -3,8 +3,8 @@ package model;
 import java.time.LocalDate;
 
 public abstract class Operation implements IOperation{
-    LocalDate date;
-    Money amount;
+    protected LocalDate date;
+    protected Money amount;
     public static final String MONEY = "€";
     public static final String SEPARATOR = " | ";
 

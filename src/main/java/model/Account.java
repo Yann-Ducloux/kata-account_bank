@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
-    List<IOperation> operations;
+    private List<IOperation> operations;
 
     private static final String LINE_BREAK = System.getProperty("line.separator");
     private static final String MONEY = "€";
